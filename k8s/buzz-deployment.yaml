@@ -20,5 +20,11 @@ spec:
             value: "5"
           - name: OUTPUT_PHRASE
             value: "Buzz"
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 8080
+          initialDelaySeconds: 1
+          periodSeconds: 1
       imagePullSecrets:
       - name: acr

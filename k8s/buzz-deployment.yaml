@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buzz
+spec:
+  selector:
+    matchLabels:
+      app: buzz
+  template:
+    metadata:
+      labels:
+        app: buzz
+    spec:
+      containers:
+      - name: buzz
+        image: rclenshaw.azurecr.io/fizzbuzz-worker
+        env:
+          - name: DIVISOR
+            value: "5"
+          - name: OUTPUT_PHRASE
+            value: "Buzz"
+      imagePullSecrets:
+      - name: acr

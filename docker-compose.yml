@@ -1,0 +1,23 @@
+version: "3"
+services:
+    fizz:
+        image: rclenshaw.azurecr.io/fizzbuzz-worker
+        build: ./worker
+        environment:
+            - DIVISOR=3
+            - OUTPUT_PHRASE=Fizz
+
+    buzz:
+        image: rclenshaw.azurecr.io/fizzbuzz-worker
+        environment:
+            - DIVISOR=5
+            - OUTPUT_PHRASE=Buzz
+
+    fizzbuzz:
+        image: rclenshaw.azurecr.io/fizzbuzz
+        build: ./fizzbuzz
+        ports:
+            - "7000:8080"
+        environment:
+            - FIZZ_SERVICE_HOST=fizz
+            - BUZZ_SERVICE_HOST=buzz

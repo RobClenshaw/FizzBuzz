@@ -49,7 +49,7 @@ func main() {
 }
 
 func getResponseFromHost(service string, number int) (string, string, error) {
-	url := fmt.Sprintf("http://%s:8080/%d", service, number)
+	url := fmt.Sprintf("http://%s:8080/data/%d", service, number)
 
 	response, err := http.Get(url)
 

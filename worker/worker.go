@@ -13,8 +13,8 @@ func main() {
 	divisor := os.Getenv("DIVISOR")
 	outputPhrase := os.Getenv("OUTPUT_PHRASE")
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		input := r.URL.Path[1:len(r.URL.Path)]
+	http.HandleFunc("/data/", func(w http.ResponseWriter, r *http.Request) {
+		input := r.URL.Path[6:len(r.URL.Path)]
 		number, err := strconv.Atoi(input)
 
 		if err != nil {

@@ -8,6 +8,8 @@ import (
 	"strconv"
 )
 
+var count = 0
+
 func main() {
 	hostName := os.Getenv("HOSTNAME")
 	divisor := os.Getenv("DIVISOR")
@@ -33,6 +35,14 @@ func main() {
 		output, _ := json.Marshal(payload)
 
 		io.WriteString(w, string(output))
+
+		count++
+	})
+
+	http.HandleFunc("/ready", func(w http.ResponseWriter, r *http.Request) {
+		if count > 0 {
+			w.WriteHeader(http.StatusInternalServerError)
+		}
 	})
 
 	http.ListenAndServe(":8080", nil)

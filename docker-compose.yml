@@ -18,6 +18,3 @@ services:
         build: ./fizzbuzz
         ports:
             - "7000:8080"
-        environment:
-            - FIZZ_SERVICE_HOST=fizz
-            - BUZZ_SERVICE_HOST=buzz

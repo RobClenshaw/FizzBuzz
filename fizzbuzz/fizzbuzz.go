@@ -6,14 +6,10 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"os"
 	"strconv"
 )
 
 func main() {
-	fizzHost := os.Getenv("FIZZ_SERVICE_HOST")
-	buzzHost := os.Getenv("BUZZ_SERVICE_HOST")
-
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		input := r.URL.Path[1:len(r.URL.Path)]
 		number, err := strconv.Atoi(input)
@@ -24,7 +20,7 @@ func main() {
 			return
 		}
 
-		fizzResponse, fizzHost, err := getResponseFromHost(fizzHost, number)
+		fizzResponse, fizzHost, err := getResponseFromHost("fizz", number)
 
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)
@@ -32,7 +28,7 @@ func main() {
 			return
 		}
 
-		buzzResponse, buzzHost, err := getResponseFromHost(buzzHost, number)
+		buzzResponse, buzzHost, err := getResponseFromHost("buzz", number)
 
 		if err != nil {
 			w.WriteHeader(http.StatusInternalServerError)

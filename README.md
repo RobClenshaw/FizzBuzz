@@ -1,6 +1,11 @@
 # GoFizzBuzz
 A distributed FizzBuzz using Go and Kubernetes. This was written for the purposes of learning Kubernetes.
 
+There are three services.
+* A Fizz service, which returns "Fizz" when the input is divisible by 3
+* A Buzz service, which returns "Buzz" when the input is divisible by 5
+* A FizzBuzz service, which concatenates the outputs from the Fizz and Buzz services. This is exposed to the end user.
+
 ## You will need
 
 * [VS Code](https://code.visualstudio.com/) (or similar) for code editing (and install the Go extension so you get static analysis)

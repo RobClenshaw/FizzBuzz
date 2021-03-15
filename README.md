@@ -1,5 +1,5 @@
 # GoFizzBuzz
-A distributed FizzBuzz using Go and Kubernetes
+A distributed FizzBuzz using Go and Kubernetes. This was written for the purposes of learning Kubernetes.
 
 ## You will need
 
@@ -15,3 +15,6 @@ The easiest way is to do `docker-compose build` from the repository root directo
 
 ## Deploying to Kubernetes
 Ensure that Minikube is up and running, then from the root directory run `kubectl apply -f .\k8s\`. To access the fizzbuzz service, run `minikube service fizzbuzz` and Minikube will provide a URL to connect to the service.
+
+## Deliberate faults
+I have added a liveness probe to the fizz and buzz services that fails after returning once. This is intentional and is to demonstrate how Kubernetes can handle failures.

@@ -2,7 +2,7 @@ version: "3"
 services:
     fizz:
         image: rclenshaw.azurecr.io/fizzbuzz-worker
-        build: ./worker
+        build: ./go/worker
         environment:
             - DIVISOR=3
             - OUTPUT_PHRASE=Fizz
@@ -15,6 +15,6 @@ services:
 
     fizzbuzz:
         image: rclenshaw.azurecr.io/fizzbuzz
-        build: ./fizzbuzz
+        build: ./go/fizzbuzz
         ports:
             - "7000:8080"

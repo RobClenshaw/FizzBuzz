@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: fizz
-        image: rclenshaw.azurecr.io/fizzbuzz-worker
+        image: robclenshaw/fizzbuzz-worker
         env:
           - name: DIVISOR
             value: "3"
@@ -26,5 +26,3 @@ spec:
             port: 8080
           initialDelaySeconds: 1
           periodSeconds: 1
-      imagePullSecrets:
-      - name: acr

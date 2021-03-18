@@ -13,6 +13,4 @@ spec:
     spec:
       containers:
       - name: fizzbuzz
-        image: rclenshaw.azurecr.io/fizzbuzz
-      imagePullSecrets:
-      - name: acr
+        image: robclenshaw/fizzbuzz

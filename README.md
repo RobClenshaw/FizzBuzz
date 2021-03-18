@@ -13,7 +13,13 @@ There are three services.
 * [Docker](https://www.docker.com/) to build the containers
 * [Docker Compose](https://docs.docker.com/compose/) (optional) if you want to run the application outside of Kubernetes (one container per service)
 * [Minikube](https://minikube.sigs.k8s.io/docs/start/), a single-node local Kubernetes instance]
-* A container repository that Kubernetes can access (I created one in Azure - if you do the same you'll need to replace the references to mine in the repo. You'll also need to add a secret to Kubernetes containing the repository credentials)
+
+### If you want to host your own container images (not necessary, you can just pull my images from Docker Hub) you will need...
+* A container repository that Kubernetes can access
+    * I created one in Azure to start with
+* To replace the references to the images in the repo to your images
+* To add a secret to Kubernetes containing the repository credentials
+* To update the deployment yaml files to add an `imagePullSecrets` section so Kubernetes can pull the image from your repository
 
 ## Building the container images
 The easiest way is to do `docker-compose build` from the repository root directory. After that, doing `docker-compose push` will push the images to the container repository. You might need to do `az acr login --name <repositoryname>` first to login to the Azure container registry.

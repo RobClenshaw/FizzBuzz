@@ -1,4 +1,4 @@
-# GoFizzBuzz
+# FizzBuzz
 A distributed FizzBuzz using Go and Kubernetes. This was written for the purposes of learning Kubernetes.
 
 There are three services.

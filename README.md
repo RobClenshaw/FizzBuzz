@@ -12,7 +12,7 @@ There are three services.
 * [Go](https://golang.org/) (optional) if you want to run the servers locally
 * [Docker](https://www.docker.com/) to build the containers
 * [Docker Compose](https://docs.docker.com/compose/) (optional) if you want to run the application outside of Kubernetes (one container per service)
-* [Minikube](https://minikube.sigs.k8s.io/docs/start/), a single-node local Kubernetes instance]
+* [Minikube](https://minikube.sigs.k8s.io/docs/start/), a single-node local Kubernetes instance
 
 ### If you want to host your own container images (not necessary, you can just pull my images from Docker Hub) you will need...
 * A container repository that Kubernetes can access

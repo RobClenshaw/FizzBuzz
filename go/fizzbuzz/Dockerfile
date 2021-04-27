@@ -11,5 +11,5 @@ RUN go build -o /go/bin/fizzbuzz
 
 FROM scratch
 COPY --from=builder /go/bin/fizzbuzz /go/bin/fizzbuzz
-EXPOSE 8080
+EXPOSE 80
 ENTRYPOINT ["/go/bin/fizzbuzz"]

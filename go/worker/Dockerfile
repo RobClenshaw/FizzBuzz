@@ -12,5 +12,5 @@ RUN go build -o /go/bin/worker
 FROM scratch
 ENV DIVISOR=3 OUTPUT_PHRASE=Fizz
 COPY --from=builder /go/bin/worker /go/bin/worker
-EXPOSE 8080
+EXPOSE 80
 ENTRYPOINT ["/go/bin/worker"]

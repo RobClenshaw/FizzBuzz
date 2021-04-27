@@ -41,11 +41,11 @@ func main() {
 		io.WriteString(w, buzzHost)
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func getResponseFromHost(service string, number int) (string, string, error) {
-	url := fmt.Sprintf("http://%s:8080/data/%d", service, number)
+	url := fmt.Sprintf("http://%s:80/data/%d", service, number)
 
 	response, err := http.Get(url)
 

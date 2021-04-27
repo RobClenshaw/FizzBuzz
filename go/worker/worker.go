@@ -45,7 +45,7 @@ func main() {
 		}
 	})
 
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":80", nil)
 }
 
 func getOutputString(input int, divisor int, outputPhrase string) string {

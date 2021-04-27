@@ -17,4 +17,4 @@ services:
         image: robclenshaw/fizzbuzz
         build: ./go/fizzbuzz
         ports:
-            - "7000:8080"
+            - "7000:80"

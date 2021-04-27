@@ -8,5 +8,5 @@ spec:
     app: fizzbuzz
   ports:
   - port: 7000
-    targetPort: 8080
+    targetPort: 80
     protocol: TCP

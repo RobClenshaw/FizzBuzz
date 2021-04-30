@@ -1,0 +1,113 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fizz
+spec:
+  type: ClusterIP
+  selector:
+    app: fizz
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: buzz
+spec:
+  type: ClusterIP
+  selector:
+    app: buzz
+  ports:
+  - port: 80
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fizzbuzz
+spec:
+  type: NodePort
+  selector:
+    app: fizzbuzz
+  ports:
+  - port: 7000
+    targetPort: 80
+    protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fizz
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: fizz
+  template:
+    metadata:
+      labels:
+        app: fizz
+    spec:
+      containers:
+      - name: fizz
+        image: robclenshaw/fizzbuzz-worker
+        env:
+          - name: DIVISOR
+            value: "3"
+          - name: OUTPUT_PHRASE
+            value: "Fizz"
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 80
+          initialDelaySeconds: 1
+          periodSeconds: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: buzz
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: buzz
+  template:
+    metadata:
+      labels:
+        app: buzz
+    spec:
+      containers:
+      - name: buzz
+        image: robclenshaw/fizzbuzz-worker
+        env:
+          - name: DIVISOR
+            value: "5"
+          - name: OUTPUT_PHRASE
+            value: "Buzz"
+        livenessProbe:
+          httpGet:
+            path: /ready
+            port: 80
+          initialDelaySeconds: 1
+          periodSeconds: 1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fizzbuzz
+spec:
+  selector:
+    matchLabels:
+      app: fizzbuzz
+  template:
+    metadata:
+      labels:
+        app: fizzbuzz
+    spec:
+      containers:
+      - name: fizzbuzz
+        image: robclenshaw/fizzbuzz

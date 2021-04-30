@@ -25,7 +25,7 @@ There are three services.
 The easiest way is to do `docker-compose build` from the repository root directory. After that, doing `docker-compose push` will push the images to the container repository. You might need to do `az acr login --name <repositoryname>` first to login to the Azure container registry.
 
 ## Deploying to Kubernetes
-Ensure that Minikube is up and running, then from the root directory run `kubectl apply -f .\k8s\`. To access the fizzbuzz service, run `minikube service fizzbuzz` and Minikube will provide a URL to connect to the service.
+Ensure that Minikube is up and running, then from the root directory run `kubectl apply -f .\k8s\fizzbuzz.yaml`. To access the fizzbuzz service, run `minikube service fizzbuzz` and Minikube will provide a URL to connect to the service.
 
 ## Deliberate faults
 I have added a liveness probe to the fizz and buzz services that fails after returning once. This is intentional and is to demonstrate how Kubernetes can handle failures.

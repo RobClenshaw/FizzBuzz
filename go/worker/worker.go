@@ -8,18 +8,20 @@ import (
 	"strconv"
 )
 
-var count = 0
-var hostName string = os.Getenv("HOSTNAME")
-var divisor string = os.Getenv("DIVISOR")
-var outputPhrase string = os.Getenv("OUTPUT_PHRASE")
-
 func main() {
-	http.HandleFunc("/data/", handleData)
-	http.HandleFunc("/ready", handleReady)
+	hostName := os.Getenv("HOSTNAME")
+	divisor := os.Getenv("DIVISOR")
+	outputPhrase := os.Getenv("OUTPUT_PHRASE")
+	count := 0
+
+	http.HandleFunc("/data/", func(w http.ResponseWriter, r *http.Request) {
+		handleData(w, r, hostName, divisor, outputPhrase, &count)
+	})
+	http.HandleFunc("/ready", func(w http.ResponseWriter, r *http.Request) { handleReady(w, r, &count) })
 	http.ListenAndServe(":80", nil)
 }
 
-func handleData(w http.ResponseWriter, r *http.Request) {
+func handleData(w http.ResponseWriter, r *http.Request, hostName string, divisor string, outputPhrase string, count *int) {
 	input := r.URL.Path[6:len(r.URL.Path)]
 	number, err := strconv.Atoi(input)
 
@@ -29,10 +31,10 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	divisor, _ := strconv.Atoi(divisor)
+	intDivisor, _ := strconv.Atoi(divisor)
 
 	payload := outputPayload{
-		OutputString: getOutputString(number, divisor, outputPhrase),
+		OutputString: getOutputString(number, intDivisor, outputPhrase),
 		Host:         hostName,
 	}
 
@@ -40,11 +42,11 @@ func handleData(w http.ResponseWriter, r *http.Request) {
 
 	io.WriteString(w, string(output))
 
-	count++
+	*count++
 }
 
-func handleReady(w http.ResponseWriter, r *http.Request) {
-	if count > 0 {
+func handleReady(w http.ResponseWriter, r *http.Request, count *int) {
+	if *count > 0 {
 		w.WriteHeader(http.StatusInternalServerError)
 	}
 }

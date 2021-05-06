@@ -61,3 +61,22 @@ func TestReturnsNotReadyIfPriorDataRequests(t *testing.T) {
 		t.Errorf("Ready request returned wrong status. Expected %v but got %v", expectedCode, rr.Code)
 	}
 }
+
+func TestCountShouldIncrementOnADataRequest(t *testing.T) {
+	req, err := http.NewRequest("GET", "/data/15", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	count := 0
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handleData(w, r, "myHost", "3", "Fizz", &count)
+	})
+
+	handler.ServeHTTP(rr, req)
+
+	if count != 1 {
+		t.Errorf("Expected count to increment to 1 but its value is %v", count)
+	}
+}

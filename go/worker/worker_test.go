@@ -34,7 +34,30 @@ func TestReturnsReadyIfNoDataRequests(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	if rr.Code != http.StatusOK {
-		t.Errorf("Ready request returned wrong status. Expected %v but got %v", http.StatusOK, rr.Code)
+	expectedCode := http.StatusOK
+
+	if rr.Code != expectedCode {
+		t.Errorf("Ready request returned wrong status. Expected %v but got %v", expectedCode, rr.Code)
+	}
+}
+
+func TestReturnsNotReadyIfPriorDataRequests(t *testing.T) {
+	req, err := http.NewRequest("GET", "/ready", nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	count := 1
+	rr := httptest.NewRecorder()
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		handleReady(w, r, &count)
+	})
+
+	handler.ServeHTTP(rr, req)
+
+	expectedCode := http.StatusInternalServerError
+
+	if rr.Code != expectedCode {
+		t.Errorf("Ready request returned wrong status. Expected %v but got %v", expectedCode, rr.Code)
 	}
 }

@@ -17,8 +17,8 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: DockerHub login
+      if: ${{ env.PUBLISH }}
       run: echo ${{secrets.DOCKERHUB_TOKEN}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
-      if: ${{ env.PUBLISH }}
     - name: Push the images
-      run: docker-compose push
       if: ${{ env.PUBLISH }}
+      run: docker-compose push

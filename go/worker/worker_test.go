@@ -34,7 +34,7 @@ func TestReturnsReadyIfNoDataRequests(t *testing.T) {
 
 	handler.ServeHTTP(rr, req)
 
-	expectedCode := http.StatusOK
+	expectedCode := http.StatusTeapot
 
 	if rr.Code != expectedCode {
 		t.Errorf("Ready request returned wrong status. Expected %v but got %v", expectedCode, rr.Code)

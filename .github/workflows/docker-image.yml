@@ -2,21 +2,23 @@ name: Build container images
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    paths-ignore:
+        - "**.md"
 
 jobs:
 
   build:
 
     runs-on: ubuntu-latest
-
+    env: 
+      PUBLISH: ${{ github.ref == 'refs/heads/main' }}
     steps:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker-compose build
     - name: DockerHub login
       run: echo ${{secrets.DOCKERHUB_TOKEN}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+      if: ${{ env.PUBLISH }}
     - name: Push the images
       run: docker-compose push
+      if: ${{ env.PUBLISH }}

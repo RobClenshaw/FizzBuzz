@@ -3,7 +3,7 @@ ENV CGO_ENABLED=0 \
     GOOS=linux \
     GOARCH=amd64
 RUN apk update && apk add --no-cache git
-WORKDIR $GOPATH/src/fizzbuzz
+WORKDIR /go/src/fizzbuzz
 COPY fizzbuzz.go .
 COPY go.mod .
 RUN go get -d -v

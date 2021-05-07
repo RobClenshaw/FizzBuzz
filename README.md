@@ -1,3 +1,5 @@
+[![Build container images](https://github.com/RobClenshaw/FizzBuzz/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/RobClenshaw/FizzBuzz/actions/workflows/docker-image.yml)
+
 # FizzBuzz
 A distributed FizzBuzz using Go and Kubernetes. This was written for the purposes of learning Kubernetes.
 

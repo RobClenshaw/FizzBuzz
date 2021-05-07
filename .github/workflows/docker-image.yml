@@ -17,6 +17,6 @@ jobs:
     - name: Build the Docker image
       run: docker-compose build
     - name: DockerHub login
-      run: ${{secrets.DOCKERHUB_TOKEN}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
+      run: echo ${{secrets.DOCKERHUB_TOKEN}} | docker login -u ${{secrets.DOCKERHUB_USERNAME}} --password-stdin
     - name: Push the images
       run: docker-compose push

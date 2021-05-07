@@ -8,24 +8,25 @@ There are three services.
 
 ## You will need
 
-* [VS Code](https://code.visualstudio.com/) (or similar) for code editing (and install the Go extension so you get static analysis)
-* [Go](https://golang.org/) (optional) if you want to run the servers locally
-* [Docker](https://www.docker.com/) to build the containers
-* [Docker Compose](https://docs.docker.com/compose/) (optional) if you want to run the application outside of Kubernetes (one container per service)
 * [Minikube](https://minikube.sigs.k8s.io/docs/start/), a single-node local Kubernetes instance
+* [Docker](https://www.docker.com/)
 
-### If you want to host your own container images (not necessary, you can just pull my images from Docker Hub) you will need...
-* A container repository that Kubernetes can access
-    * I created one in Azure to start with
-* To replace the references to the images in the repo to your images
-* To add a secret to Kubernetes containing the repository credentials
-* To update the deployment yaml files to add an `imagePullSecrets` section so Kubernetes can pull the image from your repository
+### Optional
+* [VS Code](https://code.visualstudio.com/) (or similar)
+* [Go](https://golang.org/)
+* [Docker Compose](https://docs.docker.com/compose/)
 
-## Building the container images
-The easiest way is to do `docker-compose build` from the repository root directory. After that, doing `docker-compose push` will push the images to the container repository. You might need to do `az acr login --name <repositoryname>` first to login to the Azure container registry.
+## Quick start
+Ensure that Minikube is up and running. If not, run `minikube start`.
 
-## Deploying to Kubernetes
-Ensure that Minikube is up and running, then from the root directory run `kubectl apply -f .\k8s\fizzbuzz.yaml`. To access the fizzbuzz service, run `minikube service fizzbuzz` and Minikube will provide a URL to connect to the service.
+To run FizzBuzz you don't even need to clone this repo. To deploy this implementation to Kubernetes, just run 
+```
+kubectl apply -f https://raw.githubusercontent.com/RobClenshaw/FizzBuzz/main/k8s/fizzbuzz.yaml
+```
+
+If you've cloned the repo and want to use your local definition, replace the path in the command above with the path to your local yaml file.
+
+Running `minikube service fizzbuzz` will open the service URL in a browser window. Append `/15` to the URL to get the appropriate response for the number 15.
 
 ## Deliberate faults
 I have added a liveness probe to the fizz and buzz services that fails after returning once. This is intentional and is to demonstrate how Kubernetes can handle failures.

@@ -36,7 +36,11 @@ func main() {
 			return
 		}
 
-		io.WriteString(w, fizzResponse+buzzResponse+"\n")
+		response := fizzResponse + buzzResponse
+		if response == "" {
+			response = input
+		}
+		io.WriteString(w, response+"\n")
 		io.WriteString(w, fizzHost+"\n")
 		io.WriteString(w, buzzHost)
 	})

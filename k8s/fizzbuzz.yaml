@@ -65,6 +65,7 @@ spec:
             port: 80
           initialDelaySeconds: 1
           periodSeconds: 1
+          failureThreshold: 1
         resources:
           limits:
             memory: "64Mi"
@@ -98,6 +99,7 @@ spec:
             port: 80
           initialDelaySeconds: 1
           periodSeconds: 1
+          failureThreshold: 1
         resources:
           limits:
             memory: "64Mi"
